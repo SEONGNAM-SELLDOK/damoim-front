@@ -48,7 +48,7 @@
           <span class="avatar rounded-circle thumb-sm float-left mr-2">
             <img class="rounded-circle" src="../../assets/people/a7.png" alt="..." />
           </span>
-          <span class="px-2">Philip Smith 22</span>
+          <span class="px-2">Philip Smith test</span>
           <span class="ml-1 mr-2 circle text-white fw-bold avatar-badge">9</span>
           <i class='fi flaticon-arrow-down px-2' />
         </template>
