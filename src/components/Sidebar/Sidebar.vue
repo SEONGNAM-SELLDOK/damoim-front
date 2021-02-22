@@ -14,7 +14,7 @@
       <ul class="nav">
         <NavLink
             :activeItem="activeItem"
-            header="About us"
+            header="소개글"
             link="/app/aboutUs"
             iconName="flaticon-home"
             index="aboutUs"
@@ -43,9 +43,9 @@
             iconName="flaticon-network"
             index="event"
             :childrenLinks="[
-              { header: '세미나', link: '/app/components/seminar' },
-              { header: '도서 리뷰', link: '/app/components/books' },
-              { header: '강의 추천', link: '/app/components/lecture' },
+              { header: '세미나', link: '/app/seminar' },
+              { header: '도서 리뷰', link: '/app/book' },
+              { header: '강의 추천', link: '/app/lecture' },
             ]"
         />
         <NavLink
@@ -59,9 +59,9 @@
         <NavLink
             :activeItem="activeItem"
             header="중고 거래"
-            link="/app/usedDeal"
+            link="/app/trade"
             iconName="flaticon-equal-1"
-            index="usedDeal"
+            index="trade"
             isHeader
         />
       </ul>
