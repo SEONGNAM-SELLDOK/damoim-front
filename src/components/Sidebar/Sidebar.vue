@@ -6,7 +6,7 @@
         @mouseleave="sidebarMouseLeave"
     >
       <header class="logo">
-        <router-link to="/app/dashboard"><span class="primary-word">Sing</span> <span class="secondary-word"> App</span></router-link>
+        <router-link to="/app/dashboard"><span class="primary-word">DAMOIM</span> <span class="secondary-word"> </span></router-link>
       </header>
       <h5 class="navTitle first">
         APP
@@ -14,88 +14,57 @@
       <ul class="nav">
         <NavLink
             :activeItem="activeItem"
-            header="Dashboard"
-            link="/app/dashboard"
+            header="About us"
+            link="/app/aboutUs"
             iconName="flaticon-home"
-            index="dashboard"
+            index="aboutUs"
             isHeader
         />
         <NavLink
             :activeItem="activeItem"
-            header="Typography"
-            link="/app/typography"
+            header="스터디 모임"
+            link="/app/study"
             iconName="flaticon-list"
-            index="typography"
+            index="study"
             isHeader
         />
         <NavLink
             :activeItem="activeItem"
-            header="Tables Basic"
-            link="/app/tables"
+            header="커뮤니티"
+            link="/app/community"
             iconName="flaticon-equal-1"
-            index="tables"
+            index="community"
             isHeader
         />
         <NavLink
             :activeItem="activeItem"
-            header="Notifications"
-            link="/app/notifications"
-            iconName="flaticon-bell"
-            index="notifications"
-            isHeader
-        />
-        <NavLink
-            :activeItem="activeItem"
-            header="Components"
-            link="/app/components"
+            header="이벤트"
+            link="/app/event"
             iconName="flaticon-network"
-            index="components"
+            index="event"
             :childrenLinks="[
-              { header: 'Charts', link: '/app/components/charts' },
-              { header: 'Icons', link: '/app/components/icons' },
-              { header: 'Maps', link: '/app/components/maps' },
+              { header: '세미나', link: '/app/components/seminar' },
+              { header: '도서 리뷰', link: '/app/components/books' },
+              { header: '강의 추천', link: '/app/components/lecture' },
             ]"
         />
+        <NavLink
+            :activeItem="activeItem"
+            header="구인 구직"
+            link="/app/recruit"
+            iconName="flaticon-equal-1"
+            index="recruit"
+            isHeader
+        />
+        <NavLink
+            :activeItem="activeItem"
+            header="중고 거래"
+            link="/app/usedDeal"
+            iconName="flaticon-equal-1"
+            index="usedDeal"
+            isHeader
+        />
       </ul>
-      <h5 class="navTitle">
-        LABELS
-      </h5>
-      <ul class="sidebarLabels">
-        <li>
-          <a href="#">
-            <i class="fa fa-circle text-danger"/>
-            <span class="labelName">Core</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-circle text-primary"/>
-            <span class="labelName">UI Elements</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-circle text-success"/>
-            <span class="labelName">Forms</span>
-          </a>
-        </li>
-      </ul>
-      <h5 class="navTitle">
-        PROJECTS
-      </h5>
-      <div class="sidebarAlerts">
-        <b-alert
-            v-for="alert in alerts"
-            :key="alert.id"
-            class="sidebarAlert" variant="transparent"
-            show dismissible
-        >
-          <span>{{alert.title}}</span><br/>
-          <b-progress class="sidebarProgress progress-xs mt-1"
-                      :variant="alert.color" :value="alert.value" :max="100"/>
-          <small>{{alert.footer}}</small>
-        </b-alert>
-      </div>
     </nav>
   </div>
 </template>
@@ -153,8 +122,8 @@ export default {
   },
   computed: {
     ...mapState('layout', {
-      sidebarStatic: state => state.sidebarStatic,
-      sidebarOpened: state => !state.sidebarClose,
+      sidebarStatic: true,
+      sidebarOpened: true,
       activeItem: state => state.sidebarActiveElement,
     }),
   },

@@ -1,5 +1,5 @@
 <template>
-<div :class="[{root: true, sidebarClose, sidebarStatic}, 'sing-dashboard']">
+<div :class="['root','sing-dashboard']">
   <Sidebar />
   <Helper />
   <div class="wrap">
