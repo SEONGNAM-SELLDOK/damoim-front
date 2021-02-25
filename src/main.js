@@ -13,10 +13,15 @@ import router from './Routes';
 import App from './App';
 import layoutMixin from './mixins/layout';
 import Widget from './components/Widget/Widget';
+import "vue-easytable/libs/theme-default/index.css";
+import VueEasytable from "vue-easytable";
+import { VePagination } from "vue-easytable";
 
+Vue.use(VePagination);
 Vue.use(BootstrapVue);
 Vue.use(VueTouch);
 Vue.use(Trend);
+Vue.use(VueEasytable);
 Vue.component('Widget', Widget);
 Vue.use(VueGoogleMaps, {
   load: {

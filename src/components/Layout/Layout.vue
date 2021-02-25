@@ -1,25 +1,28 @@
 <template>
-<div :class="['root','sing-dashboard']">
-  <Sidebar />
-  <Helper />
-  <div class="wrap">
-    <Header />
-    <v-touch class="content" @swipe="handleSwipe" :swipe-options="{direction: 'horizontal'}">
-      <breadcrumb-history></breadcrumb-history>
-      <transition name="router-animation">
-        <router-view />
-      </transition>
-      <footer class="contentFooter">
-        Sing App Vue Dashboard Free Template - Made by <a href="https://flatlogic.com" rel="nofollow noopener noreferrer" target="_blank">Flatlogic</a>
-      </footer>
-    </v-touch>
+  <div :class="['root','sing-dashboard']">
+    <Sidebar/>
+    <Helper/>
+    <div class="wrap" style="width:88%;">
+      <Header/>
+      <v-touch class="content" @swipe="handleSwipe" :swipe-options="{direction: 'horizontal'}">
+        <breadcrumb-history></breadcrumb-history>
+        <transition name="router-animation">
+          <router-view/>
+        </transition>
+        <footer class="contentFooter">
+          Sing App Vue Dashboard Free Template - Made by <a href="https://flatlogic.com"
+                                                            rel="nofollow noopener noreferrer"
+                                                            target="_blank">Flatlogic</a>
+        </footer>
+      </v-touch>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('layout');
+import {createNamespacedHelpers} from 'vuex';
+
+const {mapState, mapActions} = createNamespacedHelpers('layout');
 
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Header from '@/components/Header/Header';
@@ -30,7 +33,7 @@ import './Layout.scss';
 
 export default {
   name: 'Layout',
-  components: { Sidebar, Header, Helper, BreadcrumbHistory },
+  components: {Sidebar, Header, Helper, BreadcrumbHistory},
   methods: {
     ...mapActions(['switchSidebar', 'handleSwipe', 'changeSidebarActive', 'toggleSidebar'],
     ),
@@ -67,4 +70,4 @@ export default {
 };
 </script>
 
-<style src="./Layout.scss" lang="scss" />
+<style src="./Layout.scss" lang="scss"/>
