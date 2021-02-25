@@ -11,19 +11,19 @@
               <ul class="form-style-1">
                 <li>
                   <label>NO <span class="required">*</span></label>
-                  <input type="text" v-model="task.name"/>
+                  <input type="text" v-model="search.name"/>
                 </li>
                 <li>
                   <label>DATE <span class="required">*</span></label>
-                  <input type="date" v-model="task.date">
+                  <input type="date" v-model="search.date">
                 </li>
                 <li>
                   <label>HOBBY</label>
-                  <input type="text" v-model="task.hobby">
+                  <input type="text" v-model="search.hobby">
                 </li>
                 <li>
                   <label>ADDRESS <span class="required">*</span></label>
-                  <input type="text" v-model="task.address">
+                  <input type="text" v-model="search.address">
                 </li>
                 <li>
                   <input type="submit" value="Search" style="margin-right: 10px;"/>
@@ -96,6 +96,12 @@ let DB_DATA = [];
 export default {
   data() {
     return {
+      search:{
+        name:"",
+        date:null,
+        hobby:"",
+        address:"",
+      },
       task:{
         name:"",
         date:null,
