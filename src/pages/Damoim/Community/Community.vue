@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form class="d-sm-down-none ml-5"  >
+    <b-form class="d-sm-down-none ml-5">
       <b-form-group>
         <div>
           <label>선택 조회</label>
@@ -14,8 +14,6 @@
           <label>부분 조회</label>
           <b-form-radio-group
               id="radio-group-2"
-              v-model="selected"
-              :aria-describedby="ariaDescribedby"
               name="radio-sub-component"
           >
             <b-form-radio value="first">Toggle this custom radio</b-form-radio>
@@ -32,7 +30,6 @@
           <label>유무 조회</label>
           <b-form-checkbox
               id="checkbox-1"
-              v-model="status"
               name="checkbox-1"
               value="accepted"
               unchecked-value="not_accepted"
@@ -44,8 +41,10 @@
           <label>날짜 조회</label>
           <b-datepicker style="width: 140px;"></b-datepicker>
         </div>
+        <button v-on:click="greet">Greet</button>
       </b-form-group>
     </b-form>
+    <div>{{ name }}</div>
     <table class="table table-bordered table-lg mt-lg mb-0">
       <thead class="text-uppercase">
       <tr>
@@ -74,10 +73,31 @@
 </template>
 
 <script>
+import httpService from "@/service/httpService";
+
 export default {
   name: "Community",
+  methods: {
+    greet: function (event) {
+      // 메소드 안에서 사용하는 `this` 는 Vue 인스턴스를 가리킵니다
+      alert('Hello ' + this.name + '!')
+      // `event` 는 네이티브 DOM 이벤트입니다
+      if (event) {
+        alert(event.target.tagName)
+        httpService.myMethod().then((data) => {
+          // eslint-disable-next-line no-console
+          console.log("incheol jung response");
+          console.log(data);
+          this.name = data;
+        }
+      )
+        ;
+      }
+    }
+  },
   data() {
     return {
+      name: "incheol",
       items: [
         {
           id: 0,
