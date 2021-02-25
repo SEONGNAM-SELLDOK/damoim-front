@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ve-table :columns="columns" :table-data="tableData" />
+    <ve-table :columns="columns" :table-data="tableData" :event-custom-option="eventCustomOption" />
     <div class="table-pagination">
       <ve-pagination
           :total="totalCount"
@@ -37,16 +37,25 @@ export default {
           key: "a",
           title: "Number",
           align: "center",
-          renderBodyCell: ({ row, column, rowIndex }, h) => {
+          renderBodyCell: ({row, column, rowIndex}, h) => {
             return (this.pageIndex - 1) * this.pageSize + rowIndex + 1;
           },
         },
-        { field: "name", key: "b", title: "Name", align: "center" },
-        { field: "date", key: "c", title: "Date", align: "left" },
-        { field: "hobby", key: "d", title: "Hobby", align: "left" },
-        { field: "address", key: "e", title: "Address", width: "" },
+        {field: "name", key: "b", title: "Name", align: "center"},
+        {field: "date", key: "c", title: "Date", align: "left"},
+        {field: "hobby", key: "d", title: "Hobby", align: "left"},
+        {field: "address", key: "e", title: "Address", width: ""},
       ],
-    };
+      eventCustomOption: {
+        bodyRowEvents: ({row, rowIndex}) => {
+          return {
+            click: (event) => {
+              console.log("click::", row, rowIndex, event);
+            },
+          };
+        },
+      }
+    }
   },
   computed: {
     // table data
