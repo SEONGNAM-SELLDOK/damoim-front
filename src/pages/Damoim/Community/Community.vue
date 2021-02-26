@@ -100,7 +100,7 @@ export default {
       // `event` 는 네이티브 DOM 이벤트입니다
       if (event) {
         alert(event.target.tagName)
-        httpService.myMethod().then((data) => {
+        httpService.call().then((data) => {
               // eslint-disable-next-line no-console
               console.log("incheol jung response");
               console.log(data);
@@ -109,31 +109,6 @@ export default {
         )
         ;
       }
-    }
-  },
-  data() {
-    return {
-      name: "incheol",
-      items: [
-        {
-          id: 0,
-          title: "1년차 연봉이 궁금합니다.",
-          content: "안녕하세요. 저는 구직중인 학생입니다. 회사를 지원해야 하는데요. 연봉이 어떻게 될지 궁금합니다.",
-          createdOn: "2021-02-24 00:00:00",
-          createdBy: "정인철",
-          updatedOn: "2021-02-24 00:00:00",
-          updatedBy: "정인철"
-        },
-        {
-          id: 1,
-          title: "회사 생활이 너무 힘듭니다. ",
-          content: "안녕하세요. 1년차 개발자입니다. 직장 상사가 너무 괴롭힙니다.",
-          createdOn: "2021-02-24 00:00:00",
-          createdBy: "정인철",
-          updatedOn: "2021-02-24 00:00:00",
-          updatedBy: "정인철"
-        }
-      ]
     }
   }
 }

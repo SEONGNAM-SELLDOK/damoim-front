@@ -90,12 +90,13 @@
 </style>
 
 <script>
-// Simulation table data from database
-let DB_DATA = [];
+import httpService from "@/service/httpService";
 
 export default {
   data() {
     return {
+      items: [],
+      totalCount: 0,
       searchFormVisible: true,
       editFormVisible: false,
       search: {
@@ -133,7 +134,6 @@ export default {
         bodyRowEvents: ({row, rowIndex}) => {
           return {
             click: (event) => {
-              console.log("click::", row, rowIndex, event);
               this.task = row;
               this.editFormVisible = true;
             },
@@ -146,12 +146,12 @@ export default {
     // table data
     tableData() {
       const {pageIndex, pageSize} = this;
-      return DB_DATA.slice((pageIndex - 1) * pageSize, pageIndex * pageSize);
+      return this.items.slice((pageIndex - 1) * pageSize, pageIndex * pageSize);
     },
     // total count
-    totalCount() {
-      return DB_DATA.length;
-    },
+    // totalCount() {
+    //   return this.items.length;
+    // },
   },
   methods: {
     // page number change
@@ -167,15 +167,10 @@ export default {
 
     // Simulation table data
     initDatabase() {
-      DB_DATA = [];
-      for (let i = 0; i < 1000; i++) {
-        DB_DATA.push({
-          name: "John" + i,
-          date: "1900-05-20",
-          hobby: "coding and coding repeat" + i,
-          address: "No.1 Century Avenue, Shanghai" + i,
-        });
-      }
+      httpService.call().then((response) => {
+        this.items = response.items;
+        this.totalCount = response.totalCount;
+      });
     },
   },
   created() {
@@ -183,6 +178,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .form-style-1 {
   max-width: 400px;
