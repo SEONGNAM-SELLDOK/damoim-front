@@ -69,7 +69,7 @@
       </b-card>
     </div>
     <div style="margin-top:30px; text-align: right;">
-      <b-button variant="info" style="background: #74aace; border-color: #74aace;">
+      <b-button variant="info" style="background: #74aace; border-color: #74aace;" v-on:click="this.newRow">
         New Item <b-icon icon="check2-square"></b-icon>
       </b-button>
     </div>
@@ -167,6 +167,15 @@ export default {
   methods: {
     deleteRow(rowIndex) {
       alert('delete : ' + rowIndex);
+    },
+    newRow() {
+      this.editFormVisible = true;
+      this.task = {
+        name: "",
+        date: null,
+        hobby: "",
+        address: "",
+      }
     },
     editRow(rowIndex) {
       this.editFormVisible = true;
