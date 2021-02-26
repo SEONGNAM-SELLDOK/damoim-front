@@ -5,7 +5,7 @@
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-1 variant="info">Search</b-button>
         </b-card-header>
-        <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-1" v-model="searchFormVisible" accordion="my-accordion" role="tabpanel">
           <b-card-body>
             <form>
               <ul class="form-style-1">
@@ -27,7 +27,7 @@
                 </li>
                 <li>
                   <input type="submit" value="Search" style="margin-right: 10px;"/>
-                  <input type="button" value="cancel"/>
+                  <input type="button" value="cancel" v-on:click="searchFormVisible = false;"/>
                 </li>
               </ul>
             </form>
@@ -38,7 +38,7 @@
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-2 variant="info">Edit form</b-button>
         </b-card-header>
-        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+        <b-collapse id="accordion-2" v-model="editFormVisible" accordion="my-accordion" role="tabpanel">
           <b-card-body>
             <form>
               <ul class="form-style-1">
@@ -60,7 +60,7 @@
                 </li>
                 <li>
                   <input type="submit" value="Submit" style="margin-right: 10px;"/>
-                  <input type="button" value="cancel"/>
+                  <input type="button" value="cancel" v-on:click="editFormVisible = false;"/>
                 </li>
               </ul>
             </form>
@@ -96,6 +96,8 @@ let DB_DATA = [];
 export default {
   data() {
     return {
+      searchFormVisible:true,
+      editFormVisible:false,
       search:{
         name:"",
         date:null,
@@ -133,6 +135,7 @@ export default {
             click: (event) => {
               console.log("click::", row, rowIndex, event);
               this.task = row;
+              this.editFormVisible = true;
             },
           };
         },
