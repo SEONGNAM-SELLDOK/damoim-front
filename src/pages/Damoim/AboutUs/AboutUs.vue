@@ -148,10 +148,6 @@ export default {
       const {pageIndex, pageSize} = this;
       return this.items.slice((pageIndex - 1) * pageSize, pageIndex * pageSize);
     },
-    // total count
-    // totalCount() {
-    //   return this.items.length;
-    // },
   },
   methods: {
     // page number change
@@ -167,7 +163,13 @@ export default {
 
     // Simulation table data
     initDatabase() {
-      httpService.call().then((response) => {
+      httpService.call(
+          'get',
+          'https://api.github.com/users/mapbox',
+          this.pageSize,
+          this.pageIndex,
+          this.search
+      ).then((response) => {
         this.items = response.items;
         this.totalCount = response.totalCount;
       });
