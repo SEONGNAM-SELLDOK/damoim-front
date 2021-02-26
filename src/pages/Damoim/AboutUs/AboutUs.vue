@@ -8,26 +8,26 @@
         <b-collapse id="accordion-1" v-model="searchFormVisible" accordion="my-accordion" role="tabpanel">
           <b-card-body>
             <form>
-              <ul class="form-style-1">
-                <li>
+              <ul class="form-style-1 inline-form">
+                <li class="display-inline">
                   <label>NO <span class="required">*</span></label>
                   <input type="text" v-model="search.name"/>
                 </li>
-                <li>
+                <li class="display-inline">
                   <label>DATE <span class="required">*</span></label>
                   <input type="date" v-model="search.date">
                 </li>
-                <li>
+                <li class="display-inline">
                   <label>HOBBY</label>
                   <input type="text" v-model="search.hobby">
                 </li>
-                <li>
+                <li class="display-inline">
                   <label>ADDRESS <span class="required">*</span></label>
                   <input type="text" v-model="search.address">
                 </li>
                 <li>
                   <input type="submit" value="Search" style="margin-right: 10px;"/>
-                  <input type="button" value="cancel" v-on:click="searchFormVisible = false;"/>
+                  <input type="button" value="cancel" class="grey" v-on:click="searchFormVisible = false;"/>
                 </li>
               </ul>
             </form>
@@ -36,7 +36,7 @@
       </b-card>
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-          <b-button block v-b-toggle.accordion-2 variant="info">Edit form</b-button>
+          <b-button block v-b-toggle.accordion-2 variant="info" class="green">Edit</b-button>
         </b-card-header>
         <b-collapse id="accordion-2" v-model="editFormVisible" accordion="my-accordion" role="tabpanel">
           <b-card-body>
@@ -60,7 +60,7 @@
                 </li>
                 <li>
                   <input type="submit" value="Submit" style="margin-right: 10px;"/>
-                  <input type="button" value="cancel" v-on:click="editFormVisible = false;"/>
+                  <input type="button" value="cancel" class="grey" v-on:click="editFormVisible = false;"/>
                 </li>
               </ul>
             </form>
@@ -96,19 +96,19 @@ let DB_DATA = [];
 export default {
   data() {
     return {
-      searchFormVisible:true,
-      editFormVisible:false,
-      search:{
-        name:"",
-        date:null,
-        hobby:"",
-        address:"",
+      searchFormVisible: true,
+      editFormVisible: false,
+      search: {
+        name: "",
+        date: null,
+        hobby: "",
+        address: "",
       },
-      task:{
-        name:"",
-        date:null,
-        hobby:"",
-        address:"",
+      task: {
+        name: "",
+        date: null,
+        hobby: "",
+        address: "",
       },
       // page index
       pageIndex: 1,
@@ -190,11 +190,28 @@ export default {
   font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
+.inline-form {
+  max-width: 100% !important;
+}
+
+.grey {
+  background: #abbabd !important;
+}
+
+.green {
+  background: #21ae8c !important;
+}
+
 .form-style-1 li {
   padding: 0;
   display: block;
   list-style: none;
   margin: 10px 0 0 0;
+}
+
+.form-style-1 li.display-inline {
+  display: inline-block;
+  margin-right: 20px;
 }
 
 .form-style-1 label {
@@ -214,7 +231,7 @@ export default {
 .form-style-1 input[type=email],
 textarea,
 select {
-  width:300px;
+  width: 300px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -277,4 +294,5 @@ select {
 .form-style-1 .required {
   color: red;
 }
+
 </style>
