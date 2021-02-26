@@ -68,7 +68,12 @@
         </b-collapse>
       </b-card>
     </div>
-    <div style="margin-top:30px;">
+    <div style="margin-top:30px; text-align: right;">
+      <b-button variant="info" style="background: #74aace; border-color: #74aace;">
+        New Item <b-icon icon="check2-square"></b-icon>
+      </b-button>
+    </div>
+    <div style="margin-top:10px;">
       <ve-table :columns="columns" :table-data="tableData" :event-custom-option="eventCustomOption"/>
       <div class="table-pagination">
         <ve-pagination
@@ -129,17 +134,27 @@ export default {
         {field: "date", key: "c", title: "Date", align: "left"},
         {field: "hobby", key: "d", title: "Hobby", align: "left"},
         {field: "address", key: "e", title: "Address", width: ""},
-      ],
-      eventCustomOption: {
-        bodyRowEvents: ({row, rowIndex}) => {
-          return {
-            click: (event) => {
-              this.task = row;
-              this.editFormVisible = true;
-            },
-          };
+        {
+          field: "",
+          key: "e",
+          title: "Action",
+          width: "",
+          center: "left",
+          renderBodyCell: ({row, column, rowIndex}, h) => {
+            return (
+                <span>
+                  <b-button variant="success" style="padding: 2px 8px" on-click={() => this.editRow(rowIndex)}>
+                    Edit
+                  </b-button>
+                  &nbsp;
+                  <b-button variant="danger" style="padding: 2px 8px" on-click={() => this.deleteRow(rowIndex)}>
+                    Delete
+                  </b-button>
+                </span>
+            );
+          },
         },
-      }
+      ],
     }
   },
   computed: {
@@ -150,6 +165,13 @@ export default {
     },
   },
   methods: {
+    deleteRow(rowIndex) {
+      alert('delete : ' + rowIndex);
+    },
+    editRow(rowIndex) {
+      this.editFormVisible = true;
+      this.task = this.items[rowIndex];
+    },
     // page number change
     pageNumberChange(pageIndex) {
       this.pageIndex = pageIndex;
@@ -182,6 +204,10 @@ export default {
 </script>
 
 <style scoped>
+.table-btn {
+  padding: 2px 8px !important;
+}
+
 .form-style-1 {
   max-width: 400px;
   padding: 20px 12px 10px 20px;

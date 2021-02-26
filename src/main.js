@@ -16,7 +16,9 @@ import Widget from './components/Widget/Widget';
 import "vue-easytable/libs/theme-default/index.css";
 import VueEasytable from "vue-easytable";
 import { VePagination } from "vue-easytable";
+import { IconsPlugin } from 'bootstrap-vue'
 
+Vue.use(IconsPlugin)
 Vue.use(VePagination);
 Vue.use(BootstrapVue);
 Vue.use(VueTouch);
