@@ -26,7 +26,7 @@
                   <input type="text" v-model="search.address">
                 </li>
                 <li>
-                  <input type="submit" value="Search" style="margin-right: 10px;"/>
+                  <input type="submit" value="Search" style="margin-right: 10px;" v-on:click="this.getItems"/>
                   <input type="button" value="cancel" class="grey" v-on:click="searchFormVisible = false;"/>
                 </li>
               </ul>
@@ -59,7 +59,7 @@
                   <input type="text" v-model="task.address">
                 </li>
                 <li>
-                  <input type="submit" value="Submit" style="margin-right: 10px;"/>
+                  <input type="submit" value="Submit" style="margin-right: 10px;" v-on:click="this.save"/>
                   <input type="button" value="cancel" class="grey" v-on:click="editFormVisible = false;"/>
                 </li>
               </ul>
@@ -70,11 +70,12 @@
     </div>
     <div style="margin-top:30px; text-align: right;">
       <b-button variant="info" style="background: #74aace; border-color: #74aace;" v-on:click="this.newRow">
-        New Item <b-icon icon="check2-square"></b-icon>
+        New Item
+        <b-icon icon="check2-square"></b-icon>
       </b-button>
     </div>
     <div style="margin-top:10px;">
-      <ve-table :columns="columns" :table-data="tableData" :event-custom-option="eventCustomOption"/>
+      <ve-table :columns="columns" :table-data="tableData"/>
       <div class="table-pagination">
         <ve-pagination
             :total="totalCount"
@@ -100,6 +101,7 @@ import httpService from "@/service/httpService";
 export default {
   data() {
     return {
+      loadingInstance: null,
       items: [],
       totalCount: 0,
       searchFormVisible: true,
@@ -119,7 +121,7 @@ export default {
       // page index
       pageIndex: 1,
       // page size
-      pageSize: 10,
+      pageSize: 15,
       columns: [
         {
           field: "",
@@ -136,7 +138,7 @@ export default {
         {field: "address", key: "e", title: "Address", width: ""},
         {
           field: "",
-          key: "e",
+          key: "f",
           title: "Action",
           width: "",
           center: "left",
@@ -165,6 +167,25 @@ export default {
     },
   },
   methods: {
+    save() {
+      var employee = {
+        "id" : "incheol@naver.com",
+        "name" : "정인철",
+        "pwd" : "password",
+        "profilePicUrl" : "temp"
+      };
+
+      httpService.call('post', 'http://localhost:8080/members', null, null, employee).then((response) => {
+        this.getItems();
+      })
+    },
+    show() {
+      this.loadingInstance.show();
+
+      setTimeout(() => {
+        this.loadingInstance.close();
+      }, 2000);
+    },
     deleteRow(rowIndex) {
       alert('delete : ' + rowIndex);
     },
@@ -184,16 +205,15 @@ export default {
     // page number change
     pageNumberChange(pageIndex) {
       this.pageIndex = pageIndex;
+      this.getItems();
     },
-
-    // page size change
     pageSizeChange(pageSize) {
       this.pageIndex = 1;
       this.pageSize = pageSize;
+      this.getItems();
     },
-
-    // Simulation table data
-    initDatabase() {
+    getItems() {
+      this.show();
       httpService.call(
           'get',
           'https://api.github.com/users/mapbox',
@@ -207,7 +227,19 @@ export default {
     },
   },
   created() {
-    this.initDatabase();
+    this.loadingInstance = this.$veLoading({
+      fullscreen: true,
+      name: "bounce",
+      lock: true,
+    });
+
+    this.getItems();
+  },
+  mounted() {
+
+  },
+  destroyed() {
+    this.loadingInstance.destroy();
   },
 };
 </script>
