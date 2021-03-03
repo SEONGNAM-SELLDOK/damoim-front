@@ -1,10 +1,16 @@
 <template>
-  <router-view />
+  <div>
+    <router-view />
+  </div>
 </template>
 
 <script>
+import { modal } from './components/Modal/Modal'
+
 export default {
   name: "App",
+  components: { modal },
+  directives: { modal },
   created() {
     const currentPath = this.$router.history.current.path;
 

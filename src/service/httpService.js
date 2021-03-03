@@ -1,4 +1,5 @@
 import axios from 'axios';
+import modal from '../components/Modal/Modal';
 
 class HttpService {
     call(action, url, pageSize, pageIndex, parameters) {
@@ -16,6 +17,7 @@ class HttpService {
     deleteMethod(url, parameters) {
         return axios.put(url, parameters)
             .then((response) => {
+                modal.methods.showModal();
                 var DB_DATA = [];
                 for (let i = 0; i < 20; i++) {
                     DB_DATA.push({
@@ -69,6 +71,7 @@ class HttpService {
             params: parameters,
         })
             .then((response) => {
+                // modal.methods.showModal();
                 var DB_DATA = [];
                 for (let i = 0; i < 20; i++) {
                     DB_DATA.push({

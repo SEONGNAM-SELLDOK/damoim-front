@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="accordion" role="tablist">
+      <modal></modal>
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-1 variant="info">Search</b-button>
@@ -69,6 +70,7 @@
       </b-card>
     </div>
     <div style="margin-top:30px; text-align: right;">
+      <b-button id="show-btn" @click="showModal">Open Modal</b-button>
       <b-button variant="info" style="background: #74aace; border-color: #74aace;" v-on:click="this.newRow">
         New Item
         <b-icon icon="check2-square"></b-icon>
@@ -97,7 +99,7 @@
 
 <script>
 import httpService from "@/service/httpService";
-
+import modal from '@/components/Modal/Modal';
 export default {
   data() {
     return {
@@ -167,6 +169,10 @@ export default {
     },
   },
   methods: {
+    showModal() {
+      // modal.
+      modal.methods.showModal();
+    },
     save() {
       var employee = {
         "id" : "incheol@naver.com",
