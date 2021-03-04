@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="accordion" role="tablist">
-      <modal></modal>
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-1 variant="info">Search</b-button>
@@ -11,28 +10,40 @@
             <form>
               <ul class="form-style-1 inline-form">
                 <li class="display-inline">
-                  <label>title <span class="required">*</span></label>
+                  <label>제목 <span class="required">*</span></label>
                   <input type="text" v-model="search.title"/>
                 </li>
                 <li class="display-inline">
-                  <label>description <span class="required">*</span></label>
+                  <label>내용 <span class="required">*</span></label>
                   <input type="text" v-model="search.description"/>
                 </li>
                 <li class="display-inline">
-                  <label>company <span class="required">*</span></label>
+                  <label>회사 <span class="required">*</span></label>
                   <input type="text" v-model="search.company"/>
                 </li>
                 <li class="display-inline">
-                  <label>location <span class="required">*</span></label>
+                  <label>근무지 <span class="required">*</span></label>
                   <input type="text" v-model="search.location"/>
                 </li>
                 <li class="display-inline">
-                  <label>reward <span class="required">*</span></label>
+                  <label>채용보상금 <span class="required">*</span></label>
                   <input type="text" v-model="search.reward"/>
                 </li>
                 <li class="display-inline">
-                  <label>tags <span class="required">*</span></label>
+                  <label>등록자 <span class="required">*</span></label>
+                  <input type="text" v-model="search.register"/>
+                </li>
+                <li class="display-inline">
+                  <label>태그 <span class="required">*</span></label>
                   <input type="text" v-model="search.tags"/>
+                </li>
+                <li class="display-inline">
+                  <label>생성날짜 시작일 <span class="required">*</span></label>
+                  <input type="date" v-model="search.from"/>
+                </li>
+                <li class="display-inline">
+                  <label>생성날짜 종료일 <span class="required">*</span></label>
+                  <input type="text" v-model="search.to"/>
                 </li>
                 <li>
                   <input type="submit" value="Search" style="margin-right: 10px;" v-on:click="this.getItems"/>
@@ -52,20 +63,40 @@
             <form>
               <ul class="form-style-1">
                 <li>
-                  <label>NO <span class="required">*</span></label>
-                  <input type="text" v-model="task.name"/>
+                  <label>회사명 <span class="required">*</span></label>
+                  <input type="text" v-model="task.company">
                 </li>
                 <li>
-                  <label>DATE <span class="required">*</span></label>
-                  <input type="date" v-model="task.date">
+                  <label>회사 이미지 <span class="required">*</span></label>
+                  <input type="text" v-model="task.file">
                 </li>
                 <li>
-                  <label>HOBBY</label>
-                  <input type="text" v-model="task.hobby">
+                  <label>제목</label>
+                  <input type="text" v-model="task.title">
                 </li>
                 <li>
-                  <label>ADDRESS <span class="required">*</span></label>
-                  <input type="text" v-model="task.address">
+                  <label>근무지 <span class="required">*</span></label>
+                  <input type="text" v-model="task.location">
+                </li>
+                <li>
+                  <label>채용보상금 <span class="required">*</span></label>
+                  <input type="number" v-model="task.reward">
+                </li>
+                <li>
+                  <label>태그 <span class="required">*</span></label>
+                  <input type="text" v-model="task.tags">
+                </li>
+                <li>
+                  <label>내용 <span class="required">*</span></label>
+                  <input type="text" v-model="task.description">
+                </li>
+                <li>
+                  <label>등록자 <span class="required">*</span></label>
+                  <input type="text" v-model="task.register"/>
+                </li>
+                <li>
+                  <label>마감일 <span class="required">*</span></label>
+                  <input type="date" v-model="task.deadline"/>
                 </li>
                 <li>
                   <input type="submit" value="Submit" style="margin-right: 10px;" v-on:click="this.save"/>
@@ -108,6 +139,7 @@
 <script>
 import httpService from "@/service/httpService";
 import modal from '@/components/Modal/Modal';
+
 export default {
   data() {
     return {
@@ -117,24 +149,27 @@ export default {
       searchFormVisible: true,
       editFormVisible: false,
       search: {
-        title: "",
+        title: null,
         description: null,
-        company: "",
-        location: "",
-        reward:null,
-        tags:[],
-        register: ""
+        company: null,
+        location: null,
+        reward: null,
+        tags: [],
+        register: null,
+        from: null,
+        to: null
       },
       task: {
+        id: 0,
         register: "",
         company: "",
         title: "",
         location: "",
-        reward: "",
+        reward: 0,
         tags: "",
         description: "",
         deadline: "",
-        image: ""
+        file: ""
       },
       // page index
       pageIndex: 1,
@@ -181,7 +216,7 @@ export default {
     // table data
     tableData() {
       const {pageIndex, pageSize} = this;
-      return this.items.slice((pageIndex - 1) * pageSize, pageIndex * pageSize);
+      return this.items;
     },
   },
   methods: {
@@ -190,16 +225,17 @@ export default {
       modal.methods.showModal();
     },
     save() {
-      var employee = {
-        "id" : "incheol@naver.com",
-        "name" : "정인철",
-        "pwd" : "password",
-        "profilePicUrl" : "temp"
-      };
+      this.task.tags = ["test"]
+      if (this.task.id == 0 || !this.task.id) {
+        httpService.call('post', 'http://localhost:8080/recruits', null, null, this.task).then((response) => {
+          this.getItems();
+        })
+      } else {
+        httpService.call('put', 'http://localhost:8080/recruits', null, null, this.task).then((response) => {
+          this.getItems();
+        })
+      }
 
-      httpService.call('post', 'http://localhost:8080/members', null, null, employee).then((response) => {
-        this.getItems();
-      })
     },
     show() {
       this.loadingInstance.show();
@@ -209,16 +245,14 @@ export default {
       }, 2000);
     },
     deleteRow(rowIndex) {
-      alert('delete : ' + rowIndex);
+      httpService.call('delete', 'http://localhost:8080/recruits/' + this.items[rowIndex].id, null, null, null).then((response) => {
+        this.getItems();
+      });
+
     },
     newRow() {
       this.editFormVisible = true;
-      this.task = {
-        name: "",
-        date: null,
-        hobby: "",
-        address: "",
-      }
+      this.task = {}
     },
     editRow(rowIndex) {
       this.editFormVisible = true;
@@ -238,9 +272,9 @@ export default {
       this.show();
       httpService.call(
           'get',
-          'https://api.github.com/users/mapbox',
+          'http://localhost:8080/recruits',
           this.pageSize,
-          this.pageIndex,
+          this.pageIndex - 1,
           this.search
       ).then((response) => {
         this.items = response.items;

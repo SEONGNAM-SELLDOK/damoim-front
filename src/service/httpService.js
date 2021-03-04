@@ -14,20 +14,10 @@ class HttpService {
         }
     }
 
-    deleteMethod(url, parameters) {
-        return axios.put(url, parameters)
+    deleteMethod(url) {
+        return axios.delete(url)
             .then((response) => {
-                modal.methods.showModal();
-                var DB_DATA = [];
-                for (let i = 0; i < 20; i++) {
-                    DB_DATA.push({
-                        name: "John" + i,
-                        date: "1900-05-20",
-                        hobby: "coding and coding repeat" + i,
-                        address: "No.1 Century Avenue, Shanghai" + i,
-                    });
-                }
-                return {items: DB_DATA, totalCount: DB_DATA.length};
+
             });
     }
 
@@ -50,16 +40,7 @@ class HttpService {
     postMethod(url, parameters) {
         return axios.post(url, parameters)
             .then((response) => {
-                var DB_DATA = [];
-                for (let i = 0; i < 20; i++) {
-                    DB_DATA.push({
-                        name: "John" + i,
-                        date: "1900-05-20",
-                        hobby: "coding and coding repeat" + i,
-                        address: "No.1 Century Avenue, Shanghai" + i,
-                    });
-                }
-                return {items: DB_DATA, totalCount: DB_DATA.length};
+
             });
     }
 
@@ -72,16 +53,7 @@ class HttpService {
         })
             .then((response) => {
                 // modal.methods.showModal();
-                var DB_DATA = [];
-                for (let i = 0; i < 20; i++) {
-                    DB_DATA.push({
-                        name: "John" + i,
-                        date: "1900-05-20",
-                        hobby: "coding and coding repeat" + i,
-                        address: "No.1 Century Avenue, Shanghai" + i,
-                    });
-                }
-                return {items: DB_DATA, totalCount: DB_DATA.length};
+                return {items: response.data, totalCount: response.data.length};
             });
     }
 }
