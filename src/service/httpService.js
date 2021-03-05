@@ -1,8 +1,9 @@
 import axios from 'axios';
-import modal from '../components/Modal/Modal';
 
 class HttpService {
     call(action, url, pageSize, pageIndex, parameters) {
+        url = "http://118.67.130.14:8080" + "/" + url;
+        console.log(process.env)
         if (action == 'get') {
             return this.getMethod(url, pageSize, pageIndex, parameters);
         } else if (action == 'post') {

@@ -3,10 +3,11 @@
   "version": "2.1.7",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --port 3000",
+    "serve": "vue-cli-service serve --mode local --port 3000",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "vue-cli-service serve --port 3000 --mode dev"
   },
   "dependencies": {
     "@syncfusion/ej2-vue-grids": "^18.4.44",

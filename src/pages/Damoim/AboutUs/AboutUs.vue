@@ -181,7 +181,7 @@ export default {
         "profilePicUrl" : "temp"
       };
 
-      httpService.call('post', 'http://localhost:8080/members', null, null, employee).then((response) => {
+      httpService.call('post', 'members', null, null, employee).then((response) => {
         this.getItems();
       })
     },

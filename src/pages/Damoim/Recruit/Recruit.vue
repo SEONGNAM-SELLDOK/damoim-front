@@ -227,11 +227,11 @@ export default {
     save() {
       this.task.tags = ["test"]
       if (this.task.id == 0 || !this.task.id) {
-        httpService.call('post', 'http://localhost:8080/recruits', null, null, this.task).then((response) => {
+        httpService.call('post', 'recruits', null, null, this.task).then((response) => {
           this.getItems();
         })
       } else {
-        httpService.call('put', 'http://localhost:8080/recruits', null, null, this.task).then((response) => {
+        httpService.call('put', 'recruits', null, null, this.task).then((response) => {
           this.getItems();
         })
       }
@@ -245,7 +245,7 @@ export default {
       }, 2000);
     },
     deleteRow(rowIndex) {
-      httpService.call('delete', 'http://localhost:8080/recruits/' + this.items[rowIndex].id, null, null, null).then((response) => {
+      httpService.call('delete', 'recruits/' + this.items[rowIndex].id, null, null, null).then((response) => {
         this.getItems();
       });
 
@@ -272,7 +272,7 @@ export default {
       this.show();
       httpService.call(
           'get',
-          'http://localhost:8080/recruits',
+          'recruits',
           this.pageSize,
           this.pageIndex - 1,
           this.search
