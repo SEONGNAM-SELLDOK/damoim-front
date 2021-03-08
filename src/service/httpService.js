@@ -2,8 +2,7 @@ import axios from 'axios';
 
 class HttpService {
     call(action, url, pageSize, pageIndex, parameters) {
-        url = "http://118.67.130.14:8080" + "/" + url;
-        console.log(process.env)
+        url = process.env.VUE_APP_URL + url;
         if (action == 'get') {
             return this.getMethod(url, pageSize, pageIndex, parameters);
         } else if (action == 'post') {
