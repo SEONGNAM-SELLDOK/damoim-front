@@ -174,7 +174,7 @@ export default {
       // page index
       pageIndex: 1,
       // page size
-      pageSize: 15,
+      pageSize: 10,
       columns: [
         {field: "id", key: "a", title: "id", align: "center"},
         {field: "company", key: "b", title: "company", align: "center"},
