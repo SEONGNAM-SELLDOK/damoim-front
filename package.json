@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "start": "node server.js",
-    "dev": "vue-cli-service serve --port 3000 --mode dev"
+    "dev": "vue-cli-service serve --mode dev --port 3000"
   },
   "dependencies": {
     "@syncfusion/ej2-vue-grids": "^18.4.44",
