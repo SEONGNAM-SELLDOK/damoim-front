@@ -10,40 +10,40 @@
             <form>
               <ul class="form-style-1 inline-form">
                 <li class="display-inline">
-                  <label>제목 <span class="required">*</span></label>
+                  <label>제목 </label>
                   <input type="text" v-model="search.title"/>
                 </li>
                 <li class="display-inline">
-                  <label>내용 <span class="required">*</span></label>
+                  <label>내용 </label>
                   <input type="text" v-model="search.description"/>
                 </li>
                 <li class="display-inline">
-                  <label>회사 <span class="required">*</span></label>
+                  <label>회사 </label>
                   <input type="text" v-model="search.company"/>
                 </li>
                 <li class="display-inline">
-                  <label>근무지 <span class="required">*</span></label>
+                  <label>근무지 </label>
                   <input type="text" v-model="search.location"/>
                 </li>
                 <li class="display-inline">
-                  <label>채용보상금 <span class="required">*</span></label>
+                  <label>채용보상금 </label>
                   <input type="text" v-model="search.reward"/>
                 </li>
                 <li class="display-inline">
-                  <label>등록자 <span class="required">*</span></label>
+                  <label>등록자 </label>
                   <input type="text" v-model="search.register"/>
                 </li>
                 <li class="display-inline">
-                  <label>태그 <span class="required">*</span></label>
+                  <label>태그 </label>
                   <input type="text" v-model="search.tags"/>
                 </li>
                 <li class="display-inline">
-                  <label>생성날짜 시작일 <span class="required">*</span></label>
+                  <label>생성날짜 시작일 </label>
                   <input type="date" v-model="search.from"/>
                 </li>
                 <li class="display-inline">
-                  <label>생성날짜 종료일 <span class="required">*</span></label>
-                  <input type="text" v-model="search.to"/>
+                  <label>생성날짜 종료일 </label>
+                  <input type="date" v-model="search.to"/>
                 </li>
                 <li>
                   <input type="submit" value="Search" style="margin-right: 10px;" v-on:click="this.getItems"/>
@@ -68,7 +68,7 @@
                 </li>
                 <li>
                   <label>회사 이미지 <span class="required">*</span></label>
-                  <input type="text" v-model="task.file">
+                  <input type="file" @change="upload">
                 </li>
                 <li>
                   <label>제목</label>
@@ -143,6 +143,7 @@ import modal from '@/components/Modal/Modal';
 export default {
   data() {
     return {
+      file: null,
       loadingInstance: null,
       items: [],
       totalCount: 0,
@@ -169,7 +170,7 @@ export default {
         tags: "",
         description: "",
         deadline: "",
-        file: ""
+        file: null
       },
       // page index
       pageIndex: 1,
@@ -220,12 +221,17 @@ export default {
     },
   },
   methods: {
+    upload(event) {
+      this.file = event.target.files[0];
+      console.log(event);
+    },
     showModal() {
       // modal.
       modal.methods.showModal();
     },
     save() {
       this.task.tags = ["test"]
+      this.task.file = this.file;
       if (this.task.id == 0 || !this.task.id) {
         httpService.call('post', 'recruits', null, null, this.task).then((response) => {
           this.getItems();

@@ -29,7 +29,11 @@ class HttpService {
     }
 
     postMethod(url, parameters) {
-        return axios.post(url, parameters)
+        return axios.post(url, parameters, {
+            // headers:{
+            //     'Content-Type' : 'multipart/form-data'
+            // }
+        })
             .then((response) => {
                 return {success: true};
             });
