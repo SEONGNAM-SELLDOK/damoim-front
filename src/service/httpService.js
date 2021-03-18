@@ -48,7 +48,12 @@ class HttpService {
         })
             .then((response) => {
                 // modal.methods.showModal();
-                return {items: response.data, totalCount: response.data.length};
+                if (url == 'http://localhost:8080/seminar/pages') {
+                    return {items: response.data.content, totalCount: response.data.totalElements};
+                } else {
+                    return {items: response.data, totalCount: response.data.length};
+                }
+
             });
     }
 }

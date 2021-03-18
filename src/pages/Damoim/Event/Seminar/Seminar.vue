@@ -67,40 +67,48 @@
             <form>
               <ul class="form-style-1">
                 <li>
-                  <label>강의 이름 <span class="required">*</span></label>
+                  <label>세미나 제목 <span class="required">*</span></label>
                   <input type="text" v-model="task.title">
                 </li>
                 <li>
-                  <label>회사 이미지 <span class="required">*</span></label>
+                  <label>세미나 이미지 <span class="required">*</span></label>
                   <input type="file" @change="upload">
                 </li>
                 <li>
-                  <label>제목</label>
-                  <input type="text" v-model="task.title">
+                  <label>세미나 내용</label>
+                  <input type="text" v-model="task.content">
                 </li>
                 <li>
-                  <label>근무지 <span class="required">*</span></label>
-                  <input type="text" v-model="task.location">
+                  <label>국가 <span class="required">*</span></label>
+                  <input type="text" v-model="task.country">
                 </li>
                 <li>
-                  <label>채용보상금 <span class="required">*</span></label>
-                  <input type="number" v-model="task.reward">
+                  <label>도시 <span class="required">*</span></label>
+                  <input type="text" v-model="task.city">
+                </li>
+                <li>
+                  <label>장소 <span class="required">*</span></label>
+                  <input type="text" v-model="task.street">
+                </li>
+                <li>
+                  <label>총인원 <span class="required">*</span></label>
+                  <input type="number" v-model="task.totalMember">
+                </li>
+                <li>
+                  <label>현재원 <span class="required">*</span></label>
+                  <input type="number" v-model="task.currentMember"/>
+                </li>
+                <li>
+                  <label>주제 <span class="required">*</span></label>
+                  <input type="text" v-model="task.subject"/>
                 </li>
                 <li>
                   <label>태그 <span class="required">*</span></label>
-                  <input type="text" v-model="task.tags">
-                </li>
-                <li>
-                  <label>내용 <span class="required">*</span></label>
-                  <input type="text" v-model="task.description">
-                </li>
-                <li>
-                  <label>등록자 <span class="required">*</span></label>
-                  <input type="text" v-model="task.register"/>
+                  <input type="text" v-model="task.damoimTag"/>
                 </li>
                 <li>
                   <label>마감일 <span class="required">*</span></label>
-                  <input type="date" v-model="task.deadline"/>
+                  <input type="datetime-local" v-model="task.endDate"/>
                 </li>
                 <li>
                   <input type="submit" value="Submit" style="margin-right: 10px;" v-on:click="this.save"/>
@@ -155,24 +163,28 @@ export default {
       editFormVisible: false,
       search: {
         title: null,
-        description: null,
-        company: null,
-        location: null,
-        reward: null,
-        tags: [],
-        register: null,
+        boardsCountry: null,
+        boardsCity: null,
+        boardStreet: null,
+        totalMember: null,
+        currentMember: null,
+        subject: null,
+        damoimTag: null,
         from: null,
         to: null
       },
       task: {
         id: 0,
         title: "",
-        description: "",
-        speaker: "",
+        content: "",
+        country: "",
+        city: "",
+        street: 0,
+        totalMember: "",
+        currentMember: "",
         subject: "",
-        route: 0,
-        deadline: "",
-        register: ""
+        damoimTag: "",
+        endDate: ""
       },
       // page index
       pageIndex: 1,
@@ -181,16 +193,15 @@ export default {
       columns: [
         {field: "id", key: "a", title: "id", align: "center"},
         {field: "title", key: "b", title: "title", align: "center"},
-        {field: "speaker", key: "c", title: "speaker", align: "left"},
-        {field: "description", key: "d", title: "description", align: "left"},
-        {field: "image", key: "e", title: "image", width: ""},
-        {field: "subject", key: "f", title: "subject", width: ""},
-        {field: "register", key: "g", title: "register", width: ""},
-        {field: "route", key: "h", title: "route", width: ""},
-        {field: "registeredDate", key: "i", title: "registeredDate", width: ""},
-        {field: "modifier", key: "j", title: "modifier", width: ""},
-        {field: "modifiedDate", key: "k", title: "modifiedDate", width: ""},
-        {field: "deadline", key: "l", title: "deadline", width: ""},
+        {field: "content", key: "c", title: "content", align: "left"},
+        {field: "image", key: "d", title: "image", align: "left"},
+        {field: "address.country", key: "e", title: "country", width: ""},
+        {field: "address.city", key: "f", title: "city", width: ""},
+        {field: "address.street", key: "g", title: "street", width: ""},
+        {field: "totalMember", key: "h", title: "totalMember", width: ""},
+        {field: "currentMember", key: "i", title: "currentMember", width: ""},
+        {field: "subject", key: "j", title: "subject", width: ""},
+        {field: "endDate", key: "k", title: "endDate", width: ""},
         {
           field: "",
           key: "n",
@@ -233,12 +244,13 @@ export default {
     save() {
       this.task.tags = ["test"]
       this.task.file = this.file;
+      // this.task.deadline = this.task.deadline ? this.task.deadline + "T00:00:00.000Z" : null;
       if (this.task.id == 0 || !this.task.id) {
-        httpService.call('post', 'recruits', null, null, this.task).then((response) => {
+        httpService.call('post', 'seminar', null, null, this.task).then((response) => {
           this.getItems();
         })
       } else {
-        httpService.call('put', 'recruits', null, null, this.task).then((response) => {
+        httpService.call('put', 'seminar', null, null, this.task).then((response) => {
           this.getItems();
         })
       }
@@ -252,7 +264,7 @@ export default {
       }, 2000);
     },
     deleteRow(rowIndex) {
-      httpService.call('delete', 'recruits/' + this.items[rowIndex].id, null, null, null).then((response) => {
+      httpService.call('delete', 'seminar/' + this.items[rowIndex].id, null, null, null).then((response) => {
         this.getItems();
       });
 
@@ -279,7 +291,7 @@ export default {
       this.show();
       httpService.call(
           'get',
-          'recruits',
+          'seminar/pages',
           this.pageSize,
           this.pageIndex - 1,
           this.search
