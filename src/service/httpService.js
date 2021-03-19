@@ -48,7 +48,7 @@ class HttpService {
         })
             .then((response) => {
                 // modal.methods.showModal();
-                if (url == 'http://localhost:8080/seminar/pages') {
+                if (url == 'http://localhost:8080/seminar/pages' || url == 'http://localhost:8080/study/pages') {
                     return {items: response.data.content, totalCount: response.data.totalElements};
                 } else {
                     return {items: response.data, totalCount: response.data.length};
