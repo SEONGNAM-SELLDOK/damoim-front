@@ -3,34 +3,17 @@
     <b-container>
       <h5 class="auth-logo">
         <i class="fa fa-circle text-primary"></i>
-        Sing App
+        Sign in Damoim
         <i class="fa fa-circle text-danger"></i>
       </h5>
-      <Widget class="widget-auth mx-auto" title="<h3 class='mt-0'>Login to your Web App</h3>" customHeader>
-        <p class="widget-auth-info">
-            Use your email to sign in.
-        </p>
+      <Widget class="widget-auth mx-auto" customHeader>
         <form class="mt" @submit.prevent="login">
           <b-alert class="alert-sm" variant="danger" :show="!!errorMessage">
             {{errorMessage}}
           </b-alert>
-          <div class="form-group">
-            <input class="form-control no-border" ref="email" required type="email" name="email" placeholder="Email" />
-          </div>
-          <div class="form-group">
-            <input class="form-control no-border" ref="password" required type="password" name="password" placeholder="Password" />
-          </div>
-          <b-button type="submit" size="sm" class="auth-btn mb-3" variant="inverse">Login</b-button>
-          <p class="widget-auth-info">or sign in with</p>
           <div class="social-buttons">
-            <b-button variant="primary" class="social-button mb-2">
-              <i class="social-icon social-google"></i>
-              <p class="social-text">GOOGLE</p>
-            </b-button>
-            <b-button variant="success" class="social-button">
-              <i class="social-icon social-microsoft"></i>
-              <p class="social-text">MICROSOFT</p>
-            </b-button>
+            <a href="https://nid.naver.com/oauth2.0/authorize?client_id=zcz8QirgvnnplFhwtSKO&response_type=code&redirect_uri=http://localhost:8080/auth/naver/callback&state=123"><img
+                src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" height="60"/></a>
           </div>
         </form>
         <p class="widget-auth-info">
