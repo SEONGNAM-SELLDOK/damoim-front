@@ -14,7 +14,7 @@
       <ul class="nav">
         <NavLink
             :activeItem="activeItem"
-            header="소개글"
+            header="소개글(X)"
             link="/app/aboutUs"
             iconName="flaticon-home"
             index="aboutUs"
@@ -30,7 +30,7 @@
         />
         <NavLink
             :activeItem="activeItem"
-            header="커뮤니티"
+            header="커뮤니티(X)"
             link="/app/community"
             iconName="flaticon-equal-1"
             index="community"
