@@ -18,6 +18,7 @@ import VueEasytable from "vue-easytable";
 import { VePagination } from "vue-easytable";
 import { IconsPlugin } from 'bootstrap-vue'
 
+
 Vue.use(IconsPlugin)
 Vue.use(VePagination);
 Vue.use(BootstrapVue);

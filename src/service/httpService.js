@@ -45,6 +45,7 @@ class HttpService {
 
         return axios.get(url, {
             params: parameters,
+            withCredentials: true
         })
             .then((response) => {
                 // modal.methods.showModal();
