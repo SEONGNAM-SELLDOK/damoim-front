@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+// axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.get['Access-Control-Allow-Credentials'] = true;
+
 class HttpService {
     call(action, url, pageSize, pageIndex, parameters) {
         url = process.env.VUE_APP_URL + url;
@@ -40,12 +43,11 @@ class HttpService {
     }
 
     getMethod(url, pageSize, pageIndex, parameters) {
-        parameters['pageSize'] = pageSize;
-        parameters['pageIndex'] = pageIndex;
+        parameters['pageSize'] = pageSize ? pageSize : 20;
+        parameters['pageIndex'] = pageIndex ? pageIndex : 0;
 
         return axios.get(url, {
-            params: parameters,
-            withCredentials: true
+            params: parameters
         })
             .then((response) => {
                 // modal.methods.showModal();
